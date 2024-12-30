@@ -2,23 +2,23 @@ vCard - Personal Portfolio
 
 # sidebar
 
-alt = Richard hanrick
-Richard hanrick
+alt = Rohith Rao Vujjini
+Rohith Rao Vujjini
 Web developer
 
 Show Contacts
 
 Email
-richard@example.com
+vujjinirohith0507@gmail.com
 
 Phone
-+1 (213) 352-2795
++1 (319) 936-6883
 
 Birthday
-June 23, 1982
+July 5, 2000
 
 Location
-Sacramento, California, USA
+Iowa City, Iowa, USA
 
 # navbar
 

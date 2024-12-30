@@ -766,6 +766,40 @@ main {
 
 .article-title { margin-bottom: 30px; }
 
+.timeline-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* optional, if you want vertical alignment */
+}
+
+.timeline-item-title {
+  font-size: 1rem; /* adjust as you wish */
+  font-weight: 600;
+  /* Add any additional styling for the degree name */
+}
+
+.timeline-item-date {
+  /* font-size: 0.9rem;
+  font-weight: 400; */
+  opacity: 0.8;
+  color: aliceblue;
+  /* Add any styling for the date range */
+}
+
+.timeline-item-subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* optional, if you want vertical alignment */
+}
+
+.timeline-item-subtitle {
+  font-size: 1rem; /* adjust as you wish */
+  font-weight: 600;
+  /* Add any additional styling for the degree name */
+}
+
+
+
 
 /**
  * education and experience 
@@ -829,6 +863,19 @@ main {
   line-height: 1.6;
 }
 
+.timeline-bullet {
+  display: inline;       /* or inline-block */
+  color: var(--vegas-gold);
+  margin-right: 0.3rem;  /* small gap after dash */
+}
+
+.no-color-change {
+  display: inline;  
+  font-weight: bold;
+  color: inherit; /* Inherits the color from the parent element */
+  text-decoration: underline; /* Adds an underline to the link */
+}
+
 
 /**
  * skills 
@@ -867,7 +914,114 @@ main {
   border-radius: inherit;
 }
 
+/* new */
+.skills-section {
+  background-color: #1a1a1a; /* Dark background for contrast */
+  padding: 20px 0;
+  overflow: hidden; /* Prevents scrollbars from appearing */
+}
 
+.skills-title {
+  color: #ccc; /* Light grey text color */
+  text-align: center;
+  font-size: 2rem; /* Responsive font size */
+  margin-bottom: 40px; /* More space below the title */
+}
+
+
+
+.carousel-container {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  padding: 20px;
+  position: relative;
+  width: 100%;
+  scroll-snap-type: x mandatory; /* Optional: enhances the snapping behavior */
+}
+
+/* Custom scrollbar styling */
+.carousel-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel-container::-webkit-scrollbar-track {
+  background: #333; /* Dark track to match the site's theme */
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background-color: #555; /* Lighter grey for the thumb for visibility */
+  border-radius: 10px;
+  border: 2px solid #333; /* Optional: adds a border around the thumb */
+}
+
+
+.skill-card {
+  min-width: 300px; /* Minimum width for each card */
+  flex: 0 0 auto; /* Flex basis auto, not growing or shrinking */
+  margin: 0 15px; /* Space between cards */
+  background-color: #222; /* Slightly lighter shade for the card */
+  color: #ccc; /* Light grey text to match the title */
+  border: none;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.sub-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center sub-skills within the card */
+  gap: 10px; /* Space between sub-skills */
+  width: 100%;
+}
+
+.sub-skills span {
+  background-color: #2e2e2e; /* Even lighter shade for sub-skill boxes */
+  color: inherit;
+  padding: 8px 12px; /* Padding around text */
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); /* Inner shadow for depth */
+  white-space: nowrap; /* Prevents text from wrapping */
+  flex: 1 1 40%; /* Flex-grow enabled, basis at 40% */
+}
+.skill-card h3 {
+  color: var(--orange-yellow-crayola); /* Sets the color of the h3 tag */
+  margin-bottom: 10px; /* Adds a gap below the h3 text */
+}
+
+@media (max-width: 768px) {
+  .skill-card {
+      min-width: 200px; /* Smaller cards on smaller devices */
+  }
+
+  .skills-title {
+      font-size: 1.5rem; /* Smaller font size for smaller screens */
+  }
+}
+
+
+
+
+/* Magnify center card */
+.carousel-container .skill-card:nth-child(2) {
+  transform: scale(1);
+}
+
+/* Custom scrollbar */
+.carousel-container::-webkit-scrollbar {
+  height: 5px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 10px;
+}
 
 
 
