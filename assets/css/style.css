@@ -496,6 +496,10 @@ main {
 \*-----------------------------------*/
 
 .about .article-title { margin-bottom: 15px; }
+.highlight {
+  color: var(--orange-yellow-crayola);
+  display: inline;
+}
 
 .about-text {
   color: var(--light-gray);
@@ -763,6 +767,36 @@ main {
 /*-----------------------------------*\
   #RESUME
 \*-----------------------------------*/
+
+
+.resume-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Adjust based on design preference */
+  padding-right: 20px; /* Provides space on the right if needed */
+}
+
+.download-button button {
+  padding: 8px 16px;
+  /* background-color: #000; */
+  outline: 2px solid var(--vegas-gold);
+  color:  var(--vegas-gold);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.download-button button:hover {
+  background-color: #555;
+}
+
+.resume p {
+  text-align: justify; /* Adjust as needed: left, right, center */
+  text-indent: 20px; /* Indentation for the first line of each paragraph */
+  font-size: 16px; /* Adjust the font size as needed */
+  margin-bottom: 10px; /* Space between paragraphs */
+}
 
 .article-title { margin-bottom: 30px; }
 
@@ -1538,6 +1572,12 @@ textarea.form-input::-webkit-resizer { display: none; }
   /**
    * #ABOUT
    */
+   .texts {
+    text-align: justify; /* Adjust as needed: left, right, center */
+    text-indent: 20px; /* Indentation for the first line of each paragraph */
+    font-size: 16px; /* Adjust the font size as needed */
+    margin-bottom: 10px; 
+  }
 
   .about .article-title { margin-bottom: 20px; }
 
