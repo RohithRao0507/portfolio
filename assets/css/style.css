@@ -425,6 +425,10 @@ main {
 .contact-info :is(.contact-link, time, address) {
   color: var(--white-2);
   font-size: var(--fs-7);
+  display: block;
+  overflow-wrap: break-word; /* Ensures text wraps within the container */
+  word-break: break-word; /* For older browsers */
+  white-space: normal; /* Ensures text wraps instead of staying on one line */
 }
 
 .contact-info address { font-style: normal; }
