@@ -197,9 +197,7 @@ const initPageNavigation = function() {
           window.scrollTo(0, 0);
           
           // Trigger skill progress bar animation when resume page is opened
-          if (page.dataset.page === "resume") {
-            setTimeout(animateSkillBars, 300);
-          }
+          // Skills are now tabbed chips (no progress-bar animation)
         }
       });
       
@@ -217,42 +215,8 @@ if (document.readyState === 'loading') {
 
 
 
-// Skill progress bar animation
-const animateSkillBars = function () {
-  const progressBars = document.querySelectorAll(".skill-progress-fill");
-  
-  progressBars.forEach(bar => {
-    const width = bar.style.width;
-    bar.style.width = "0%";
-    
-    // Use requestAnimationFrame for smooth animation
-    setTimeout(() => {
-      bar.style.width = width;
-    }, 100);
-  });
-}
-
-// Intersection Observer for skill progress bars (animate when scrolled into view)
-const skillObserverOptions = {
-  threshold: 0.3,
-  rootMargin: "0px"
-};
-
-const skillObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const progressBars = entry.target.querySelectorAll(".skill-progress-fill");
-      progressBars.forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = "0%";
-        setTimeout(() => {
-          bar.style.width = width;
-        }, 100);
-      });
-      skillObserver.unobserve(entry.target);
-    }
-  });
-}, skillObserverOptions);
+const supportsIntersectionObserver =
+  typeof window !== "undefined" && "IntersectionObserver" in window;
 
 // Update total experience in About page stats
 const updateAboutStats = function() {
@@ -294,6 +258,17 @@ const updateAboutStats = function() {
 
 // Smooth scroll animations on page load
 const initScrollAnimations = function() {
+  if (!supportsIntersectionObserver) {
+    // Fallback: ensure content is visible (no observer animations)
+    const sections = document.querySelectorAll(".timeline, .skills-section, .achievements-section, .service, .quick-stats, .about-text");
+    sections.forEach(section => {
+      section.style.opacity = "1";
+      section.style.transform = "translateY(0)";
+      section.style.transition = "";
+    });
+    return;
+  }
+
   const observerOptions = {
     threshold: 0.1,
     rootMargin: "0px 0px -50px 0px"
@@ -450,93 +425,36 @@ const initExperienceDuration = function() {
 document.addEventListener("DOMContentLoaded", function() {
   // Defer non-critical initializations for better performance
   requestAnimationFrame(() => {
-    const skillCategories = document.querySelectorAll(".skill-category");
-    skillCategories.forEach(category => {
-      skillObserver.observe(category);
-    });
-    
-    // Initialize accordion functionality
-    initAccordions();
-    
+    // Skill progress-bar animation removed (skills are now tabbed chips)
+
     // Initialize scroll animations (defer for better initial load)
     setTimeout(() => {
-      initScrollAnimations();
+      try {
+        initScrollAnimations();
+      } catch (e) {
+        console.error("Scroll animations init failed", e);
+      }
     }, 100);
-    
+
     // Initialize dynamic experience calculation
-    initExperienceDuration();
-    
+    try {
+      initExperienceDuration();
+    } catch (e) {
+      console.error("Experience duration init failed", e);
+    }
+
     // Update About page stats
-    updateAboutStats();
-    
-    // Update stats periodically
-    setInterval(() => {
+    try {
       updateAboutStats();
-    }, 86400000);
+      setInterval(() => {
+        updateAboutStats();
+      }, 86400000);
+    } catch (e) {
+      console.error("About stats init failed", e);
+    }
   });
 });
 
 
 
-// Accordion functionality with keyboard navigation and ARIA
-const initAccordions = function() {
-  const accordionSections = document.querySelectorAll("[data-accordion-toggle]");
-  
-  accordionSections.forEach(section => {
-    const header = section.querySelector(".accordion-header");
-    const content = section.querySelector(".accordion-content");
-    const contentId = content?.id;
-    
-    if (!header || !content) return;
-    
-    // Make sure clicks on the content don't trigger toggle
-    content.addEventListener("click", function(e) {
-      e.stopPropagation();
-    });
-    
-    // Toggle function
-    const toggleAccordion = function() {
-      const isActive = section.classList.contains("active");
-      const isExpanded = !isActive;
-      
-      // Toggle active class
-      section.classList.toggle("active");
-      
-      // Update ARIA attributes
-      header.setAttribute("aria-expanded", isExpanded);
-      
-      // If opening, trigger skill bar animation if it's the skills section
-      if (isExpanded && section.querySelector(".skill-category")) {
-        setTimeout(animateSkillBars, 300);
-      }
-    };
-    
-    // Click handler
-    section.addEventListener("click", function(e) {
-      // Don't toggle if clicking inside the expanded content
-      if (e.target.closest(".accordion-content")) {
-        return;
-      }
-      toggleAccordion();
-    });
-    
-    // Keyboard navigation
-    header.addEventListener("keydown", function(e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleAccordion();
-      }
-    });
-    
-    // Focus management
-    header.addEventListener("focus", function() {
-      this.style.outline = "2px solid var(--orange-yellow-crayola)";
-      this.style.outlineOffset = "2px";
-    });
-    
-    header.addEventListener("blur", function() {
-      this.style.outline = "";
-      this.style.outlineOffset = "";
-    });
-  });
-}
+// Accordion removed (resume sections are now always-visible)
